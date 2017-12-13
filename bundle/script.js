@@ -2489,6 +2489,8 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactDom = __webpack_require__(37);
 
+var _reactDom2 = _interopRequireDefault(_reactDom);
+
 var _reactRouterDom = __webpack_require__(46);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -2502,19 +2504,120 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var App = function (_Component) {
     _inherits(App, _Component);
 
-    function App() {
+    /*  bind_props  */
+    function App(props) {
         _classCallCheck(this, App);
 
-        return _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).apply(this, arguments));
+        /*  init_state  */
+        var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
+
+        _this.state = { date: '', title: props.title };
+        setInterval(function () {
+            return _this.update();
+        }, 1000);
+        return _this;
     }
+    /*  Global_function  */
+
 
     _createClass(App, [{
+        key: 'update',
+        value: function update() {
+            var dt = new Date();
+            var h = dt.getHours();
+            var m = dt.getMinutes();
+            this.setState({ date: h + ':' + m });
+        }
+    }, {
         key: 'render',
         value: function render() {
+            var sl0 = {
+                fontWeight: '2em',
+                textAlign: 'left'
+            };
+            var sl1 = {
+                fontWeight: '2em',
+                textAlign: 'left'
+            };
             return _react2.default.createElement(
-                'h1',
-                null,
-                'Hello, World'
+                'div',
+                { className: 'container' },
+                _react2.default.createElement(
+                    'div',
+                    { className: 'header' },
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'left' },
+                        _react2.default.createElement(
+                            'div',
+                            { className: 'content_title' },
+                            _react2.default.createElement(
+                                'h3',
+                                { style: sl1 },
+                                this.state.title
+                            )
+                        )
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'right' },
+                        _react2.default.createElement(
+                            'div',
+                            { className: 'content_date' },
+                            _react2.default.createElement(
+                                'span',
+                                { style: sl0 },
+                                this.state.date
+                            )
+                        )
+                    )
+                ),
+                _react2.default.createElement(
+                    'div',
+                    { className: 'main_title' },
+                    _react2.default.createElement(
+                        'h2',
+                        null,
+                        '\u30B7\u30D5\u30C8\u7BA1\u7406'
+                    )
+                ),
+                _react2.default.createElement(
+                    'div',
+                    { className: 'main_menu' },
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'nav_a item' },
+                        _react2.default.createElement(
+                            'a',
+                            { className: 'innerHTML' },
+                            '\u30B7\u30D5\u30C8\u78BA\u8A8D\u753B\u9762'
+                        )
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'nav_b item' },
+                        _react2.default.createElement(
+                            'a',
+                            { className: 'innerHTML' },
+                            '\u30B7\u30D5\u30C8\u6295\u7A3F\u753B\u9762'
+                        )
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'nav_c item' },
+                        _react2.default.createElement(
+                            'a',
+                            { className: 'innerHTML' },
+                            '\u30C1\u30E3\u30C3\u30C8\u753B\u9762'
+                        )
+                    )
+                ),
+                _react2.default.createElement('div', { className: 'main_content' }),
+                _react2.default.createElement(
+                    'div',
+                    { className: 'footer' },
+                    _react2.default.createElement('div', { className: 'owner' })
+                )
             );
         }
     }]);
@@ -2522,7 +2625,9 @@ var App = function (_Component) {
     return App;
 }(_react.Component);
 
-(0, _reactDom.render)(_react2.default.createElement(
+App.defaultProps = { title: "シフト予定確認画面" };
+
+_reactDom2.default.render(_react2.default.createElement(
     _reactRouterDom.BrowserRouter,
     { history: history },
     _react2.default.createElement(
@@ -2530,7 +2635,7 @@ var App = function (_Component) {
         null,
         _react2.default.createElement(_reactRouterDom.Route, { path: '/', component: App })
     )
-), document.querySelector('#app'));
+), document.querySelector('#root'));
 
 /***/ }),
 /* 35 */

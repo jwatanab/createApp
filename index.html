@@ -2,11 +2,86 @@
 <html>
 
 <head>
+    <meta charset="utf-8">
     <title>Sample</title>
 </head>
+<style>
+    html {
+        font-size: 72.5%;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    strong,
+    em {
+        font-weight: 200;
+    }
+
+    h1 {
+        font-size: 3em;
+    }
+
+    h2 {
+        font-size: 2.5em;
+    }
+
+    h3 {
+        font-size: 2em;
+    }
+
+    body {
+        padding: 30px;
+        font-family: 'Avenir', 'Helvetica Neue', 'Helvetica', 'Arial', 'Hiragino Sans', 'ヒラギノ角ゴシック', YuGothic, 'Yu Gothic', 'メイリオ', Meiryo, 'ＭＳ Ｐゴシック', 'MS PGothic'
+    }
+
+    .container .header .left {
+        text-align: left;
+    }
+
+    .container .header .right {
+        position: absolute;
+        top: 0;
+        right: 0;
+        padding: 10px 20px;
+        font-size: 1.5em;
+    }
+
+    .container .main_title {
+        text-align: center;
+    }
+
+    .container .main_menu {
+        text-align: center;
+    }
+
+    .container .main_menu .item {
+        display: inline-block;
+        font-size: 1.8em;
+        padding: 12px 28px;
+        border: 1px solid rgba(255, 255, 255, 0.5);
+        background-color: rgba(0, 0, 0, 0.3);
+        transition: .3s;
+    }
+
+    .container .main_menu .nav_a:hover {
+        color: rgba(255, 255, 255, 0.8);
+    }
+
+    .container .main_menu .nav_b:hover {
+        color: rgba(255, 255, 255, 0.8);
+    }
+
+    .container .main_menu .nav_c:hover {
+        color: rgba(255, 255, 255, 0.8);
+    }
+</style>
 
 <body>
-    <div id="app"></div>
+    <div id="root"></div>
     <script src="./bundle/script.js"></script>
 </body>
 

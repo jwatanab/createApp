@@ -1,89 +1,14 @@
 <!DOCTYPE html>
-<html>
 
 <head>
     <meta charset="utf-8">
-    <title>Sample</title>
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
-        crossorigin="anonymous">
+        crossorigin="anonymous" />
+    <link rel="stylesheet" href="../public/stylesheet/stylesheet.css" />
 </head>
-
 <style>
-    html {
-        font-size: 72.5%;
-    }
-
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6,
-    strong,
-    em {
-        font-weight: 200;
-    }
-
-    h1 {
-        font-size: 3em;
-    }
-
-    h2 {
-        font-size: 2.5em;
-    }
-
-    h3 {
-        font-size: 2em;
-    }
-
-    body {
-        padding: 30px;
-        font-family: 'Avenir', 'Helvetica Neue', 'Helvetica', 'Arial', 'Hiragino Sans', 'ヒラギノ角ゴシック', YuGothic, 'Yu Gothic', 'メイリオ', Meiryo, 'ＭＳ Ｐゴシック', 'MS PGothic'
-    }
-
-    .container .header .left {
-        text-align: left;
-    }
-
-    .container .header .right {
-        position: absolute;
-        top: 0;
-        right: 0;
-        padding: 10px 20px;
-        font-size: 1.5em;
-    }
-
-    .container .main_title {
-        text-align: center;
-    }
-
-    .container .main_menu {
-        text-align: center;
-    }
-
-    .container .main_menu .item {
-        display: inline-block;
-        font-size: 1.8em;
-        padding: 12px 28px;
-        border: 1px solid rgba(255, 255, 255, 0.5);
-        background-color: rgba(0, 0, 0, 0.3);
-        transition: .3s;
-    }
-
-    .container .main_menu .nav_a:hover {
-        color: rgba(255, 255, 255, 0.8);
-    }
-
-    .container .main_menu .nav_b:hover {
-        color: rgba(255, 255, 255, 0.8);
-    }
-
-    .container .main_menu .nav_c:hover {
-        color: rgba(255, 255, 255, 0.8);
-    }
-
     #root .chat_bar {
-        position: absolute;
+        position: fixed;
         bottom: 0;
         right: 0;
         height: 14px;
@@ -93,23 +18,34 @@
         transition: 1s;
     }
 
-    .fa {
-        font-size: 5em;
+    .insert {
+        font-size: 1.6em;
+        padding: 12px 0;
+    }
+
+    .image {
+        max-height: 250px;
+        max-width: 500px;
+        margin: -32px 0 0 32px;
     }
 </style>
 
-<body>
+<body id="body">
     <div id="root">
         <div class="chat_bar"></div>
     </div>
 </body>
 <script>
+    var body = document.getElementById('body');
+    var name;
     var bar = document.querySelector('.chat_bar');
     bar.addEventListener('click', function (e) {
         if (this.style.height === '180px') {
             return false;
         }
-        var name = namePrompt();
+        if (!name) {
+            name = namePrompt();
+        }
         createParentElement(e.target);
         createElement(e.target, name);
     }, false);
@@ -117,6 +53,10 @@
     function createParentElement(e) {
         e.style.height = '180px';
         e.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
+    }
+
+    function namePrompt() {
+        return window.prompt('名前を入力してください');
     }
 
     function createElement(e, name) {
@@ -182,13 +122,13 @@
             while (tg.firstChild) {
                 tg.removeChild(tg.firstChild);
             }
-            tg.style.backgroundColor = 'background-color: rgba(0, 0, 0, 0.9)';
+            tg.style.backgroundColor = 'rgba(0, 0, 0, 0.9)';
             tg.style.height = '14px';
         }, false);
         i.addEventListener('click', function () {
             imageInput.click();
         });
-        /*  バグ  */
+        /*  複数枚に対応必須(オブジェクトを生成する等)  */
         imageInput.onchange = () => {
             for (let i = 0; i < imageInput.files.length; i++) {
                 const fr = new FileReader();
@@ -208,13 +148,31 @@
         textInput.onchange = (e) => {
             Global.text = e.target.value;
         }
-        submitBtn.onclick = () => {
-            for (var i in Global) {
-                if (Global[i].name) {
-
-                }
+        submitBtn.onclick = (e) => {
+            var tg = Global;
+            var insert = document.getElementsByClassName('insert')[0];
+            if (!tg.text && !tg.images) return false;
+            if (tg.text) {
+                var doc = document.createElement('div');
+                doc.className = 'insert';
+                doc.innerHTML += tg.name + ':' + tg.text;
+                body.insertBefore(doc, insert);
             }
-            textInput = "";
+            if (tg.images) {
+                var img = document.createElement('img');
+                var span = document.createElement('span');
+                span.className = 'insert';
+                span.innerHTML = tg.name + ':';
+                img.src = tg.images;
+                img.className = 'image';
+                body.insertBefore(span, insert);
+                body.insertBefore(img, insert);
+            }
+
+            /*  Global_init  */
+            tg.images = '';
+            tg.text = '';
+            textInput.value = "";
         }
         /*  挿入  */
         e.appendChild(close);
@@ -223,10 +181,6 @@
         e.appendChild(textInput);
         e.appendChild(submitBtn);
         e.appendChild(people);
-    }
-
-    function namePrompt() {
-        return window.prompt('名前を入力してください');
     }
 
 </script>

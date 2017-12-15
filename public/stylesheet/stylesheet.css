@@ -74,3 +74,7 @@ body {
 .container .main_menu .nav_c:hover {
     color: rgba(255, 255, 255, 0.8);
 }
+
+.fa-picture-o{
+    font-size: inherit;
+}

@@ -3415,8 +3415,11 @@ var ChatTitle = function (_Header4) {
 FrontTitle.defaultProps = { title: "ホーム" };
 ConfirmTitle.defaultProps = { title: "シフト予定確認画面" };
 PromptTitle.defaultProps = { title: "シフト予定投稿画面" };
-ChatTitle.defaultProps = { title: "チャット画面" };
+ChatTitle.defaultProps = { title: "チャット画面"
 
+    /*  Styles  */
+
+};
 var Front = function (_Component) {
     _inherits(Front, _Component);
 
@@ -3527,14 +3530,98 @@ var Chat = function (_Component4) {
     _createClass(Chat, [{
         key: 'render',
         value: function render() {
+            var doClick = function doClick(e) {
+                var that = e.target;
+            };
+            var Global = {
+                name: '',
+                text: '',
+                images: ''
+            };
+            var fa = 'fa';
+            var faO = 'fa-picture-o';
+            var styles = _aphrodite.StyleSheet.create({
+                bar: {
+                    position: 'fixed',
+                    bottom: '0',
+                    right: '0',
+                    height: '180px',
+                    width: '360px',
+                    backgroundColor: 'rgba(0,0,0,0.5)',
+                    borderRadius: '5px',
+                    transition: '1s'
+                },
+                close: {
+                    fontSize: '2em',
+                    position: 'fixed',
+                    margin: '5px',
+                    color: 'white',
+                    right: '0'
+                },
+                file: {
+                    display: 'none'
+                },
+                i: {
+                    fontSize: "3em",
+                    position: 'fixed',
+                    bottom: '0',
+                    right: '115px',
+                    margin: '5px'
+                },
+                textInput: {
+                    position: 'fixed',
+                    bottom: '0',
+                    height: '18px',
+                    opacity: '0.6',
+                    color: 'black',
+                    cols: '70',
+                    padding: '5px',
+                    margin: '7px'
+                },
+                submitBtn: {
+                    position: 'fixed',
+                    bottom: '0',
+                    right: '0',
+                    backgroundColor: '#dee7ec',
+                    fontSize: '1.2em',
+                    padding: '4.5px 18px',
+                    margin: '7px'
+                },
+                people: {
+                    margin: '14px'
+                }
+            });
             return _react2.default.createElement(
                 'div',
                 null,
                 _react2.default.createElement(ChatTitle, null),
                 _react2.default.createElement(
-                    'h1',
-                    null,
-                    '\u3053\u3053\u3067\u306F\u30C1\u30E3\u30C3\u30C8\u753B\u9762\u3092\u8868\u793A\u3057\u307E\u3059'
+                    'div',
+                    { id: 'chat_bar', className: (0, _aphrodite.css)(styles.bar), onClick: function onClick(e) {
+                            return doClick(e);
+                        } },
+                    _react2.default.createElement(
+                        'span',
+                        { className: (0, _aphrodite.css)(styles.close) },
+                        '\xD7'
+                    ),
+                    _react2.default.createElement(
+                        'h3',
+                        { className: (0, _aphrodite.css)(styles.people) },
+                        '\u6C0F\u540D:'
+                    ),
+                    _react2.default.createElement('input', { className: (0, _aphrodite.css)(styles.file), type: 'file', multiple: true }),
+                    _react2.default.createElement('input', { className: (0, _aphrodite.css)(styles.textInput) }),
+                    _react2.default.createElement(
+                        'button',
+                        { className: (0, _aphrodite.css)(styles.submitBtn) },
+                        '\u9001\u4FE1'
+                    ),
+                    _react2.default.createElement(
+                        'i',
+                        { className: (0, _aphrodite.css)(styles.i) },
+                        _react2.default.createElement('i', { className: 'fa fa-picture-o' })
+                    )
                 )
             );
         }
